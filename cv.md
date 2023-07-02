@@ -14,12 +14,11 @@ Have experience with design and configuration SAP CPI for mapping and integratio
 
 \```
 // Update BM Class for customer
-if (this.ToCustomer.IsSet() && this.ToCustomer.CurrentCommon.IsSet() && (this.InsuranceContractType.content == "01" || this.InsuranceContractType.content == "10") && 
-    this.VehicleMean.Count() > 0 && this.ContractStartDateTime.content != fromDB.ContractStartDateTime.content) {
-	// Only for person
-	var vehiclesByContrQry = Contract.VehicleMean.CustomerVehicleMeansQuery.QueryByElements;
-	var vehiclesByContrParams = vehiclesByContrQry.CreateSelectionParams();
-	// Another vehicles for this customer
+if (this.ToCustomer.IsSet() && this.ToCustomer.CurrentCommon.IsSet() && this.VehicleMean.Count() > 0 && this.ContractStartDateTime.content != fromDB.ContractStartDateTime.content) {  
+	// Only for person  
+	var vehiclesByContrQry = Contract.VehicleMean.CustomerVehicleMeansQuery.QueryByElements;  
+	var vehiclesByContrParams = vehiclesByContrQry.CreateSelectionParams();   
+	// Another vehicles for this customer  
 	vehiclesByContrParams.Add(vehiclesByContrQry.ToParent_ToCustomer_InternalID, "I", "EQ", this.ToCustomer.InternalID);
 	var vehiclesByContrResult = vehiclesByContrQry.ExecuteDataOnly(vehiclesByContrParams);
 	// Get last depends on date
